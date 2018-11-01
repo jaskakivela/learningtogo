@@ -1,0 +1,63 @@
+{
+    "apiVersion": "build.openshift.io/v1",
+    "kind": "BuildConfig",
+    "metadata": {
+        "annotations": {
+        },
+        "labels": {
+            "app": "golang-ex"
+        },
+        "name": "golang-ex"
+    },
+    "spec": {
+        "failedBuildsHistoryLimit": 5,
+        "nodeSelector": null,
+        "output": {
+            "to": {
+                "kind": "ImageStreamTag",
+                "name": "golang-ex:latest"
+            }
+        },
+        "postCommit": {},
+        "resources": {},
+        "runPolicy": "Serial",
+        "source": {
+            "git": {
+                "ref": "master",
+                "uri": "https://github.com/sclorg/golang-ex.git"
+            },
+            "type": "Git"
+        },
+        "strategy": {
+            "sourceStrategy": {
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "golang:latest",
+                    "namespace": "openshift"
+                }
+            },
+            "type": "Source"
+        },
+        "successfulBuildsHistoryLimit": 5,
+        "triggers": [
+            {
+                "type": "ImageChange"
+            },
+            {
+                "type": "ConfigChange"
+            },
+            {
+                "generic": {
+                    "secret": "199271b4867cb2eb"
+                },
+                "type": "Generic"
+            },
+            {
+                "github": {
+                    "secret": "5b8506ac622c5144"
+                },
+                "type": "GitHub"
+            }
+        ]
+    }
+}

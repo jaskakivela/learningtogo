@@ -1,0 +1,82 @@
+{
+    "apiVersion": "apps.openshift.io/v1",
+    "kind": "DeploymentConfig",
+    "metadata": {
+        "annotations": {
+        },
+        "labels": {
+            "app": "golang-ex"
+        },
+        "name": "golang-ex"
+    },
+    "spec": {
+        "replicas": 1,
+        "revisionHistoryLimit": 10,
+        "selector": {
+            "deploymentconfig": "golang-ex"
+        },
+        "strategy": {
+            "activeDeadlineSeconds": 21600,
+            "resources": {},
+            "rollingParams": {
+                "intervalSeconds": 1,
+                "maxSurge": "25%",
+                "maxUnavailable": "25%",
+                "timeoutSeconds": 600,
+                "updatePeriodSeconds": 1
+            },
+            "type": "Rolling"
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "golang-ex",
+                    "deploymentconfig": "golang-ex"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "image": "learning-go/golang-ex",
+                        "imagePullPolicy": "Always",
+                        "name": "golang-ex",
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "ports": [
+                            {
+                                "containerPort": "8888",
+                                "protocol": "TCP"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "terminationGracePeriodSeconds": 30
+            }
+        },
+        "test": false,
+        "triggers": [
+            {
+                "imageChangeParams": {
+                    "automatic": true,
+                    "containerNames": [
+                        "golang-ex"
+                    ],
+                    "from": {
+                        "kind": "ImageStreamTag",
+                        "name": "golang-ex:latest",
+                        "namespace": "learning-go"
+                    }
+                },
+                "type": "ImageChange"
+            },
+            {
+                "type": "ConfigChange"
+            }
+        ]
+    }
+}

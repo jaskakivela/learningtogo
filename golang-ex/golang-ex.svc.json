@@ -1,0 +1,24 @@
+{
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+        "labels": {
+            "app": "golang-ex"
+        },
+        "name": "golang-ex"
+    },
+    "spec": {
+        "ports": [
+            {
+                "port": 8888,
+                "protocol": "TCP",
+                "targetPort": 8888
+            }
+        ],
+        "selector": {
+            "deploymentconfig": "golang-ex"
+        },
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+    }
+}

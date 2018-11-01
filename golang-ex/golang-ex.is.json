@@ -1,0 +1,14 @@
+{
+    "apiVersion": "image.openshift.io/v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+        },
+        "labels": {
+            "app": "golang-ex"
+        },
+        "name": "golang-ex"
+    },
+    "spec": {
+    }
+}

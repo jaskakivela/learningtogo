@@ -1,0 +1,24 @@
+{
+    "apiVersion": "route.openshift.io/v1",
+    "kind": "Route",
+    "metadata": {
+        "annotations": {
+        },
+        "labels": {
+            "app": "golang-ex"
+        },
+        "name": "golang-ex"
+    },
+    "spec": {
+        "host": "golang-ex-learning-go.os.kivela.net",
+        "port": {
+            "targetPort": 8888
+        },
+        "to": {
+            "kind": "Service",
+            "name": "golang-ex",
+            "weight": 100
+        },
+        "wildcardPolicy": "None"
+    }
+}
